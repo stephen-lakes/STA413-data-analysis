@@ -7,12 +7,11 @@ hospital = read.csv('hospitalData.csv')
 
 
 # UNIVARIATE QUANTITATIVE VARIABLE ()
+#ggplot(hospital, aes(x=age)) +
+#  geom_density(alpha=0.1, fill="blue")
 
-ggplot(hospital, aes(x=age)) +
-  geom_density(alpha=0.1, fill="blue") +
 
-
-summary(hospital$age)
+#summary(hospital$age)
 
 # UNIVARIATE QUALITATIVE VARIABLE (PIE CAHRT & BAR PLOT)
 data = data.frame(table(hospital$gender))
@@ -26,12 +25,9 @@ data <- data %>%
   mutate(ypos = cumsum(prop)- 0.5*prop )
 
 
-
 ggplot(data,aes(x="", y=Freq, fill=Gender)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y") +
-
-
   theme_void() +
   geom_text(aes(y = ypos, label = Gender), color = "white", size=6)
 
@@ -79,12 +75,13 @@ ggtitle("Age distribution of patients")
 #  DENSITY PLOT
 
 ggplot(data = hospital, aes(x=bmi)) +
-geom_density(fill="#1185ba", color="#e9ecef", alpha=0.8) +
+  geom_density(fill="#1185ba", color="#e9ecef", alpha=0.8) +
   geom_vline(aes(xintercept=mean(bmi)), color="blue", linetype="dashed", size=1) +
   ggtitle("Overall distribution of the Bmi") +
-  theme(
-    plot.title = element_text(size=15))
+  theme(plot.title = element_text(size=15))
 
+print("Five number summary")
+summary(hospital$bmi)
 
 
 #  LOLIPOP CHART
@@ -109,10 +106,3 @@ ggplot(data, aes(x=x, y=y)) +
   xlab("Bloodgroup") +
   ylab("Frequency") +
   ggtitle("Population of patients by Bloodgroup")
-
-
-
-print("Five number summary")
-summary(hospital$bmi)
-
-fivenum(hospital$bmi)
